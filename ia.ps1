@@ -116,11 +116,25 @@ function addMaps {
   Write-Host " * get files with filter: $($filter)"
   $mapFiles = Get-ChildItem -Filter $filter
 
+  $existingMaps = Get-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -Name $integrationAccountName
+  $set = New-Object System.Collections.Generic.HashSet[string]
+  foreach ($existingMap in $existingMaps)
+  {
+    $set.Add($existingMap.Name)
+  }
+    
   foreach( $mapFile in $mapFiles)
   {
+    
     $mapName = $mapFile.Name.ToLower().Replace(".liquid","")
     Write-Host " * adding $($mapName) from $($mapFile.FullName)"
+    if($set.ContainsKey($mapName)){
+      Remove-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -MapName $existingMap.Name -Name $integrationAccountName -Force
+      New-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -Name $integrationAccountName -MapName $mapName -MapFilePath $mapFile.FullName -MapType Liquid
+    }
+    else{
     New-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -Name $integrationAccountName -MapName $mapName -MapFilePath $mapFile.FullName -MapType Liquid
+    }
   }
 }
 
