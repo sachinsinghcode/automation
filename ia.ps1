@@ -135,5 +135,5 @@ function removeMaps {
 }
 
 $path = mapsPath
-removeMaps
+#removeMaps
 addMaps -mapFilesPath $path
