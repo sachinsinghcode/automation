@@ -129,7 +129,7 @@ function addMaps {
     $mapName = $mapFile.Name.ToLower().Replace(".liquid","")
     Write-Host " * adding $($mapName) from $($mapFile.FullName)"
     if($set -contains $mapName){
-      Remove-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -MapName $existingMap.Name -Name $integrationAccountName -Force
+      Remove-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -MapName $mapName -Name $integrationAccountName -Force
       New-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -Name $integrationAccountName -MapName $mapName -MapFilePath $mapFile.FullName -MapType Liquid
     }
     else{
