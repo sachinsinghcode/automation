@@ -32,7 +32,7 @@ else {
     $AZURE_LA_RESOURCE_GROUP_DEV = $env:projectResourceGroupName 
     
     $integrationAccountName =  $env:integrationAccountName
-    $deletingMaps = $env:deletingMaps           
+    $deletingMaps = __deletingMaps__           
 
     Write-Output " AZURE_LA_RESOURCE_GROUP_DEV = $($AZURE_LA_RESOURCE_GROUP_DEV)"
     Write-Output " integrationAccountName = $($integrationAccountName)"
