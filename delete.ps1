@@ -51,5 +51,5 @@ function removeMaps {
   }
 }
 
-$path = mapsPath
+
 removeMaps
