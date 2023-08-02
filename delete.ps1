@@ -36,7 +36,7 @@ else {
 
     Write-Output " AZURE_LA_RESOURCE_GROUP_DEV = $($AZURE_LA_RESOURCE_GROUP_DEV)"
     Write-Output " integrationAccountName = $($integrationAccountName)"
-    Write-Output " mapFilesArtefactPath = $($mapFilesArtefactPath)"
+    Write-Output " deleting maps list = $($deletingMaps)"
 
 }
 
