@@ -125,28 +125,28 @@ function addMaps {
     
   foreach( $mapFile in $mapFiles)
   {
-    
     $mapName = $mapFile.Name.ToLower().Replace(".liquid","")
-    Write-Host " * adding $($mapName) from $($mapFile.FullName)"
     if($set -contains $mapName){
+      Write-Host " * replacing $($mapName) from $($mapFile.FullName)"
       Remove-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -MapName $mapName -Name $integrationAccountName -Force
       New-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -Name $integrationAccountName -MapName $mapName -MapFilePath $mapFile.FullName -MapType Liquid
     }
     else{
+    Write-Host " * adding $($mapName) from $($mapFile.FullName)"
     New-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -Name $integrationAccountName -MapName $mapName -MapFilePath $mapFile.FullName -MapType Liquid
     }
   }
 }
 
-function removeMaps {
-  Write-Host " * removing existing maps from IA $($integrationAccountName) in RG $($AZURE_LA_RESOURCE_GROUP_DEV)"
-  $existingMaps = Get-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -Name $integrationAccountName
-  foreach ($existingMap in $existingMaps)
-  {
-    Write-Host "##[warning] removing map: $($existingMap.Name) from RG: $($AZURE_LA_RESOURCE_GROUP_DEV) and IA: $($integrationAccountName) "
-    Remove-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -MapName $existingMap.Name -Name $integrationAccountName -Force
-  }
-}
+# function removeMaps {
+#   Write-Host " * removing existing maps from IA $($integrationAccountName) in RG $($AZURE_LA_RESOURCE_GROUP_DEV)"
+#   $existingMaps = Get-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -Name $integrationAccountName
+#   foreach ($existingMap in $existingMaps)
+#   {
+#     Write-Host "##[warning] removing map: $($existingMap.Name) from RG: $($AZURE_LA_RESOURCE_GROUP_DEV) and IA: $($integrationAccountName) "
+#     Remove-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -MapName $existingMap.Name -Name $integrationAccountName -Force
+#   }
+# }
 
 $path = mapsPath
 #removeMaps
