@@ -47,7 +47,7 @@ function removeMaps {
   foreach ($deletingMap in $deletingMaps)
   {
     Write-Host "##[warning] removing map: $($deletingMap.Name) from RG: $($AZURE_LA_RESOURCE_GROUP_DEV) and IA: $($integrationAccountName) "
-    Remove-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -MapName $deletingMap.Name -Name $integrationAccountName -Force
+    Remove-AzIntegrationAccountMap -ResourceGroupName $AZURE_LA_RESOURCE_GROUP_DEV -MapName $deletingMap -Name $integrationAccountName -Force
   }
 }
 
